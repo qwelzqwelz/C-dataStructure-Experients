@@ -19,7 +19,7 @@ int main() {
     stack *S2 = stackInit(exp->length);
     toRPN(S1, S2, exp);
     float calResult = calRPN(S2, S1);
-    printf("-------------------------------------\n表达式的运算结果为：%f", calResult);
+    printf("-------------------------------------\n表达式的运算结果为：%f\n", calResult);
     system("pause");
     return 0;
 }

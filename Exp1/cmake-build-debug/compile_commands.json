@@ -1,0 +1,17 @@
+[
+{
+  "directory": "C:/Users/qwelzqwelz/Desktop/C/Exp1/cmake-build-debug",
+  "command": "C:\\PROGRA~1\\MINGW-~1\\X86_64~1.0-P\\mingw64\\bin\\gcc.exe   -g   -std=gnu99 -o CMakeFiles\\Exp1.dir\\main.c.obj   -c C:\\Users\\qwelzqwelz\\Desktop\\C\\Exp1\\main.c",
+  "file": "C:/Users/qwelzqwelz/Desktop/C/Exp1/main.c"
+},
+{
+  "directory": "C:/Users/qwelzqwelz/Desktop/C/Exp1/cmake-build-debug",
+  "command": "C:\\PROGRA~1\\MINGW-~1\\X86_64~1.0-P\\mingw64\\bin\\gcc.exe   -g   -std=gnu99 -o CMakeFiles\\Exp1.dir\\libs\\fileModule.c.obj   -c C:\\Users\\qwelzqwelz\\Desktop\\C\\Exp1\\libs\\fileModule.c",
+  "file": "C:/Users/qwelzqwelz/Desktop/C/Exp1/libs/fileModule.c"
+},
+{
+  "directory": "C:/Users/qwelzqwelz/Desktop/C/Exp1/cmake-build-debug",
+  "command": "C:\\PROGRA~1\\MINGW-~1\\X86_64~1.0-P\\mingw64\\bin\\gcc.exe   -g   -std=gnu99 -o CMakeFiles\\Exp1.dir\\libs\\randomModule.c.obj   -c C:\\Users\\qwelzqwelz\\Desktop\\C\\Exp1\\libs\\randomModule.c",
+  "file": "C:/Users/qwelzqwelz/Desktop/C/Exp1/libs/randomModule.c"
+}
+]

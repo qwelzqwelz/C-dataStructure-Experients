@@ -43,7 +43,7 @@ int setDelete(Set *s, Node *n) {
     int result = 0;
     for (int i = 0; i < s->size; ++i) {
         if (n == s->nList[i]) {
-            for (int j = 0; j < s->size - 1; ++j) {
+            for (int j = i; j < s->size - 1; ++j) {
                 s->nList[j] = s->nList[j + 1];
             }
             s->nList[s->size - 1] = NULL;

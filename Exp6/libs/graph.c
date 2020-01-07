@@ -55,8 +55,8 @@ Set *graphGetVertexSetCopy(Graph *g) {
     return setCopy(g->vertexSet);
 }
 
-char **graphGetShortestPath(Graph *g, char *name1, char *name2) {
-    if(!graphGetVertex(g, name1) || !graphGetVertex(g, name2)){
+Path *graphGetShortestPath(Graph *g, char *name1, char *name2) {
+    if (!graphGetVertex(g, name1) || !graphGetVertex(g, name2)) {
         printf("-- 有结点不存在 --\n");
         return NULL;
     }
@@ -66,11 +66,10 @@ char **graphGetShortestPath(Graph *g, char *name1, char *name2) {
     if (!setDelete(V, graphGetVertex(g, name1))) {
         return NULL;
     }
-    setPrint(S);
-    setPrint(V);
-    char **result = NULL;
+    Path *result = NULL;
     Path **dist = (Path **) malloc(sizeof(Path *) * MAX_VERTEX_LENGTH);
     int distLength = V->size;
+    // dist 数组初始化
     for (int i = 0; i < distLength; ++i) {
         dist[i] = (Path *) malloc(sizeof(Path));
         dist[i]->pathNames = (char **) malloc(sizeof(char) * MAX_VERTEX_LENGTH);
@@ -79,14 +78,16 @@ char **graphGetShortestPath(Graph *g, char *name1, char *name2) {
         dist[i]->pathNames[0] = name1;
         dist[i]->pathNames[1] = V->nList[i]->name;
     }
+    // 进行多次迭代，直到确定的最短路径是给定的两人之间的路径
     Path *minPath;
     while (!setIsEmpty(V)) {
         minPath = pathGetMin(dist, V, distLength);
-        if (minPath->dest == graphGetVertex(g, name2)) {
-            result = minPath->pathNames;
-            if (minPath->sumWeight < MAX_VERTEX_LENGTH) {
-                result[minPath->sumWeight + 1] = NULL;
-            } else {
+        if(!minPath){
+            break;
+        }
+        else if (minPath->dest == graphGetVertex(g, name2)) {
+            result = minPath;
+            if (minPath->sumWeight >= MAX_VERTEX_LENGTH) {
                 result = NULL;
             }
             break;
@@ -123,7 +124,7 @@ Path *pathGetMin(Path **dist, Set *V, int distLength) {
     Path *result = NULL;
     Path *testPath;
     for (int i = 0; i < V->size; ++i) {
-        testPath = pathGetNode(dist, V->nList[i], distLength);
+        testPath = getPathByDestNode(dist, V->nList[i], distLength);
         if (!result) {
             result = testPath;
         } else {
@@ -135,7 +136,7 @@ Path *pathGetMin(Path **dist, Set *V, int distLength) {
     return result;
 }
 
-Path *pathGetNode(Path **dist, Node *node, int distLength) {
+Path *getPathByDestNode(Path **dist, Node *node, int distLength) {
     Path *result = NULL;
     for (int j = 0; j < distLength; ++j) {
         if (dist[j]->dest == node) {
@@ -150,7 +151,7 @@ void pathUpdateAll(Graph *g, Path **dist, int distLength, Set *V, Path *minPath)
     Path *path = NULL;
     int newSumWeight = 0;
     for (int i = 0; i < V->size; ++i) {
-        path = pathGetNode(dist, V->nList[i], distLength);
+        path = getPathByDestNode(dist, V->nList[i], distLength);
         newSumWeight = minPath->sumWeight + graphGetEdgeWeight(g, minPath->dest, V->nList[i]);
         if (newSumWeight < MAX_VERTEX_LENGTH && newSumWeight < path->sumWeight) {
             // 更新总权值
@@ -170,4 +171,17 @@ Node *createNode(char *name) {
     strcpy(newName, name);
     n->name = newName;
     return n;
+}
+
+void pathPrint(Path *path) {
+    printf(">>>最短路径为：");
+    int len = 0;
+    char *name = path->pathNames[len];
+    while (strcmp(path->dest->name, name) != 0) {
+        printf("%s ", name);
+        len++;
+        name = path->pathNames[len];
+    }
+    printf("%s ", name);
+    printf("\n");
 }

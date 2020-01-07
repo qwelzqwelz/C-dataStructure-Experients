@@ -2,32 +2,44 @@
 #include <stdlib.h>
 #include "libs/tree.h"
 
+// 显示构造的树的信息
 void showTreeInfo(Tree *T);
 
+// 根据标准输入创建一棵树
 Tree *createTreeFromInput();
 
 int main() {
     system("chcp 65001 > nul");
-
+    // 初始化一棵树
     Tree *T = createTreeFromInput();
+    /**
+     * 显示这棵树的信息，包括：
+     * 1. 按先序、中序、后序、层序遍历这棵二叉树，
+     * 2. 求二叉树的深度、宽度，
+     * 3. 统计度为0，1，2的结点个数
+     */
     showTreeInfo(T);
     char c;
 
+    // 根据给定的键查找树结点
     printf("请输入要查找的键：\n");
     scanf("%c", &c);
     printf("结点地址为：%p\n", treeFindNode(T->root, c));
 
+    // 插入结点
     getchar();
     printf("请输入要插入的键值：\n");
     scanf("%c", &c);
     treeInsertNode(T, c);
     showTreeInfo(T);
 
+    // 删除结点
     getchar();
     printf("请输入要删除的键：\n");
     scanf("%c", &c);
     treeDeleteNode(treeFindNode(T->root, c));
     showTreeInfo(T);
+
     system("pause");
     return 0;
 }

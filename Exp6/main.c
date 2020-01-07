@@ -3,15 +3,20 @@
 #include <string.h>
 #include "libs/graph.h"
 
+// 根据标准输入构造人的关系图
 Graph *getGraphFromInput();
 
+// 从标准输入中获取要查询的关系
 void getPathFromInput(Graph *g);
 
+// 从标准输入中读取两个人的名字
 void readNamesFromInput(char *name1, char *name2);
 
 int main() {
     system("chcp 65001 > nul");
+    // 根据标准输入构造人的关系图
     Graph *g = getGraphFromInput();
+    // 从标准输入中获取要查询的关系，输出最短关系
     printf("--------------------------------------------------------\n");
     printf("    人物关系构建结束，接下来输入两个人名，求取最短联系路径   \n");
     printf("--------------------------------------------------------\n");
@@ -30,9 +35,9 @@ Graph *getGraphFromInput() {
         readNamesFromInput(name1, name2);
         if (name1[0] == '0' && name2[0] == '0') {
             break;
-        } else if(strcmp(name1, name2)==0){
+        } else if (strcmp(name1, name2) == 0) {
             printf("--禁止与自身建立联系，此行输入被忽略--\n");
-        }else {
+        } else {
             graphAddEdge(g, name1, name2);
         }
     } while (1);
@@ -44,20 +49,11 @@ void getPathFromInput(Graph *g) {
     char name2[MAX_NAME_LENGTH] = {0};
     printf("请每行输入存在联系的两个人的姓名，两个姓名之间以空格隔开，回车结束：\n");
     readNamesFromInput(name1, name2);
-    char** minPath = graphGetShortestPath(g, name1, name2);
-    char* name = NULL;
-    if(!minPath){
+    Path *shortestPath = graphGetShortestPath(g, name1, name2);
+    if (!shortestPath) {
         printf("-- 两者之间不存在联系 --\n");
-    }else{
-        printf(">>>最短路径为：");
-        int len = 0;
-        name = minPath[len];
-        while (name){
-            printf("%s ", name);
-            len++;
-            name = minPath[len];
-        }
-        printf("\n");
+    } else {
+        pathPrint(shortestPath);
     }
 }
 
@@ -68,9 +64,9 @@ void readNamesFromInput(char *name1, char *name2) {
     name1ReadOver = 0;
     len = 0;
     name1[0] = ' ';
-    while ((c = (char)getchar()) != EOF && len < MAX_NAME_LENGTH) {
+    while ((c = (char) getchar()) != EOF && len < MAX_NAME_LENGTH) {
         if (c == ' ') {
-            if (!name1ReadOver && name1[0]!=' ') {
+            if (!name1ReadOver && name1[0] != ' ') {
                 name1ReadOver = 1;
                 name1[len] = '\0';
                 len = 0;

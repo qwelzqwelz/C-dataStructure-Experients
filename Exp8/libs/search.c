@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "search.h"
 
+// 顺序查找
 long sequentialSearch(int *array, int num, long length, long *times) {
     long result = -1L;
     for (int i = 0; i < length; ++i) {
@@ -16,6 +17,7 @@ long sequentialSearch(int *array, int num, long length, long *times) {
     return result;
 }
 
+// (非递归) 二分查找
 long binarySearch(int *array, int num, long length, long *times) {
     long result = -1L;
     long left = 0;
@@ -35,6 +37,7 @@ long binarySearch(int *array, int num, long length, long *times) {
     return result;
 }
 
+// 递归二分查找
 long recursiveBinarySearch(int *array, int num, long left, long right, long *times) {
     long result = -1L;
     if (right - left > 0) {

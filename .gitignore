@@ -1,5 +1,4 @@
 *.jar
-*.txt
 test
 Exp?/.idea
 Exp?/cmake-build-debug/CMakeFiles

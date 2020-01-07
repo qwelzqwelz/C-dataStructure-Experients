@@ -4,11 +4,15 @@
 #include "libs/sort.h"
 #include "libs/readAndPrint.h"
 
+// 文件名最大长度
 #define MAX_FILE_NAME_LENGTH 200
+// 参与排序的数字的最大值
 #define MAX_VALUE 2<<15
 
+// 封装的测试函数，返回排序时间
 double sortTest(char *dataType, int dataNum, int method);
 
+// 选择排序算法
 void selectSortMethod(int *array, int length, int method);
 
 int main() {

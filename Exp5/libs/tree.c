@@ -23,27 +23,27 @@ Node *treeInsertNode(Tree *tree, char data) {
     node->left = NULL;
     node->right = NULL;
     node->parent = NULL;
-    if (tree->root == NULL)//判断树是不是空树
+    if (tree->root == NULL)         // 判断树是不是空树
     {
         tree->root = node;
-    } else {//不是空树
-        Node *temp = tree->root;//从树根开始
+    } else {                //不是空树
+        Node *temp = tree->root;    // 从树根开始
         while (temp != NULL) {
-            if (data < temp->data)//小于就进左儿子
+            if (data < temp->data)  // 小于就进左儿子
             {
                 if (temp->left == NULL) {
                     temp->left = node;
                     node->parent = temp;
                     break;
-                } else {//继续判断
+                } else {    // 继续判断
                     temp = temp->left;
                 }
-            } else {//否则进右儿子
+            } else {        // 否则进右儿子
                 if (temp->right == NULL) {
                     temp->right = node;
                     node->parent = temp;
                     break;
-                } else {//继续判断
+                } else {    // 继续判断
                     temp = temp->right;
                 }
             }
@@ -56,9 +56,9 @@ Node *treeInsertNode(Tree *tree, char data) {
 void treeDeleteNode(Node *node) {
     if (!node) {
         printf("--空结点，无法删除--\n");
-    } else if(!node->left && !node->right){
+    } else if (!node->left && !node->right) {
         resetParentNode(node, NULL);
-    }else if (!node->left) {
+    } else if (!node->left) {
         node->right->parent = node->parent;
         resetParentNode(node, node->right);
     } else if (!node->right) {
@@ -69,9 +69,8 @@ void treeDeleteNode(Node *node) {
         Node *newNode = node->right;
         while (newNode && newNode->left) {
             newNode = newNode->left;
-            printf("--not null node data is : %c \n--", newNode->data);
         }
-        if(newNode->parent->left==newNode){
+        if (newNode->parent->left == newNode) {
             newNode->parent->left = NULL;
         }
         // 将右分支的最左侧结点替换为新结点
@@ -96,12 +95,9 @@ void resetParentNode(Node *node, Node *newChild) {
 Node *treeFindNode(Node *node, char c) {
     Node *result = NULL;
     while (node && !result) {
-        printf("--c1:%c, c2:%c--\n", node->data, c);
         if (node->data == c) {
             result = node;
             break;
-        }else{
-            printf("**************c1:%c, c2:%c**************\n", node->data, c);
         }
         if (node->data > c) {
             node = node->left;
@@ -109,7 +105,7 @@ Node *treeFindNode(Node *node, char c) {
             node = node->right;
         }
     }
-    if(result){
+    if (result) {
         printf("the result is : %c\n", result->data);
     }
     return result;

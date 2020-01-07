@@ -3,6 +3,7 @@
 #include "libs/queue.h"
 #include "libs/stack.h"
 
+// 最大的牌的总数
 #define MAX_CARD_NUM 120
 
 queue *readCards(char *name);
@@ -11,16 +12,13 @@ void makeCard(queue *Q, stack *S1, stack *S2);
 
 int main() {
     system("chcp 65001 > nul");
-    queue *Q1 = readCards("A");
-    queue *Q2 = readCards("B");
-    stack *S1 = stackInit(MAX_CARD_NUM * 2); // 牌堆-栈
-    stack *S2 = stackInit(MAX_CARD_NUM * 2); // 用于逆置的工具-栈
+    queue *Q1 = readCards("A"); // A 手中的牌-队列
+    queue *Q2 = readCards("B"); // B 手中的牌-队列
+    stack *S1 = stackInit(MAX_CARD_NUM * 2); // 牌堆栈
+    stack *S2 = stackInit(MAX_CARD_NUM * 2); // 用于逆置的工具栈
     int isATurn = 1;
-    queuePrint(Q1);
-    queuePrint(Q2);
-    stackPrint(S1);
-    stackPrint(S2);
     while (!queueIsEmpty(Q1) && !queueIsEmpty(Q2)) {
+        // 一轮出牌
         printf("----------------------------------\n");
         if (isATurn) {
             printf("-- A出牌 --\n");
@@ -30,6 +28,7 @@ int main() {
             makeCard(Q2, S1, S2);
         }
         isATurn = isATurn ? 0 : 1;
+        // 出牌结束，打印牌的情况
         printf("A手中的牌：");
         queuePrint(Q1);
         printf("B手中的牌: ");
