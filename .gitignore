@@ -2,8 +2,4 @@
 *.txt
 test
 Exp?/.idea
-Exp?/cmake-build-debug/
-!Exp?/cmake-build-debug/*.cbq
-!Exp?/cmake-build-debug/*.exe
-!Exp?/cmake-build-debug/Makefile
-!Exp?/cmake-build-debug/compile_commands.json
+Exp?/cmake-build-debug/CMakeFiles
